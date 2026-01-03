@@ -27,7 +27,7 @@ struct Node
 		left = l;
 		right = r;
 		type = t;
-		strcpy(name, n);
+		strcpy_s(name, n);
 	}
 };
 
@@ -51,6 +51,10 @@ public:
 	void insert(int val1, char type, char* n)
 	{
 		return insert(val1, root, type, n);
+	}
+	// Tra ve gia tri root
+	Node* getRoot() {
+		return root;
 	}
 
 	// Tim nut val2
@@ -181,7 +185,7 @@ public:
 				Node* temp = minValueNode(t->right);
 				t->index = temp->index;
 				t->type = temp->type;
-				strcpy(t->name, temp->name);
+				strcpy_s(t->name, temp->name);
 				t->right = deleteNode(t->right, temp->index, temp->type);
 			}
 		}
@@ -209,28 +213,28 @@ public:
 	}
 	// Do phuc tap cua giai thuat la O(N) voi N la so nut trong cay
 
-	//Test
-	int main() {
-		Book book1;
-		Book book2;
-		Node* root1 = new Node(1, nullptr, nullptr, 'C', "Chapter 1");
-		Node* root2 = new Node(1, nullptr, nullptr, 'C', "Chapter 1");
-		Node* root3 = new Node(1, nullptr, nullptr, 'C', "Chapter 2");
-		book1 = Book(root1);
-		book2 = Book(root2);
-		if (book1.areIdentical(root1, root2)) {
-			cout << "Hai cuon sach la ban copy cua nhau." << endl;
-		}
-		else {
-			cout << "Hai cuon sach khong phai la ban copy cua nhau." << endl;
-		}
-		book1 = Book(root3);
-		if (book1.areIdentical(root1, root2)) {
-			cout << "Hai cuon sach la ban copy cua nhau." << endl;
-		}
-		else {
-			cout << "Hai cuon sach khong phai la ban copy cua nhau." << endl;
-		}
-		return 0;
-	}
 };
+//Test
+int main() {
+	Book book1;
+	Book book2;
+	Node* root1 = new Node(1, nullptr, nullptr, 'C', "Chapter 1");
+	Node* root2 = new Node(1, nullptr, nullptr, 'C', "Chapter 1");
+	Node* root3 = new Node(1, nullptr, nullptr, 'C', "Chapter 2");
+	book1 = Book(root1);
+	book2 = Book(root2);
+	if (book1.areIdentical(book1.getRoot(), book2.getRoot())) {
+		cout << "Hai cuon sach la ban copy cua nhau." << endl;
+	}
+	else {
+		cout << "Hai cuon sach khong phai la ban copy cua nhau." << endl;
+	}
+	book1 = Book(root3);
+	if (book1.areIdentical(book1.getRoot(), book2.getRoot())) {
+		cout << "Hai cuon sach la ban copy cua nhau." << endl;
+	}
+	else {
+		cout << "Hai cuon sach khong phai la ban copy cua nhau." << endl;
+	}
+	return 0;
+}
